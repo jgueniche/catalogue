@@ -1,0 +1,32 @@
+# Données : JAMAIS dans git (dépôt public) — PDF, base, vignettes, rapports, valeurs golden, sorties d'analyse
+/data/*
+!/data/README.md
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Node / front
+node_modules/
+web/dist/
+.vite/
+
+# Bases et fichiers sensibles, où qu'ils soient
+*.db
+*.sqlite
+*.sqlite3
+*.pdf
+!docs/**/*.pdf
+
+# Divers
+.DS_Store
+Thumbs.db
+.env
+.env.*
