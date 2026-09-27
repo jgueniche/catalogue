@@ -16,6 +16,7 @@ Chaque ligne donne ma recommandation ; si vous validez sans commentaire, elle s'
 | D8 | Hypothèses de TCO | `config/tco.yml` : impressions par face selon le ruban, fréquence de nettoyage… Ces hypothèses sont affichées dans l'UI, car ce ne sont pas des données du PDF. |
 | D9 | Équivalences préconfiguré ⇔ base + kits | Calculées et marquées « calculé », jamais présentées comme une donnée Evolis. |
 | D10 | Sauvegarde | `tarifs backup` : copie à chaud de la base (API backup de SQLite) avec rotation, vers un dossier de votre choix, par exemple synchronisé avec Drive. |
+| D11 | Identité visuelle Celer-IT | Logo Celer-IT dans l'en-tête de l'application (phase 3) et des devis (phase 5). Badge « Evolis Platinum Reseller 2026/2027 » en pied des devis clients, désactivable. Fichiers dans `assets/branding/`. Les coordonnées de la société sont saisies dans les paramètres, jamais inventées. |
 
 ## Stack : aucune objection bloquante
 
@@ -48,6 +49,7 @@ src/tarifs/
   quotes/                      calculs, contrôles, exports (phase 5)
   tco/                         phase 6
 config/                        synonyms.yml, overrides/, evolis-models.yml, tco.yml
+assets/branding/               logo Celer-IT, badge Evolis Platinum Reseller
 web/                           Vite + React + TypeScript + Tailwind
 tests/                         pytest (unitaires synthétiques ; golden si le PDF est présent)
 tools/analysis/                sondes de la phase 1
@@ -101,6 +103,7 @@ L'équivalence PM2-0001-M + S10281 + S10112 = PM2-0005 est testée en phase 4, a
 - **Moteur de codes** : exact > préfixe > contient ; une seule substitution ou transposition tolérée, uniquement si aucun résultat.
 - **MiniSearch** : ET entre mots ; préfixe sur le dernier mot ; flou à distance 1 pour les mots de 5 lettres ou plus ; boost name > details > gamme ; pas de sous-chaîne pour les jetons de moins de 3 caractères ; synonymes FR → EN.
 - **Interface.**
+  - En-tête avec le logo Celer-IT et le nom de l'application ; en thème sombre, le logo est posé sur une pastille claire.
   - Facettes à compteurs dynamiques et histogramme des prix.
   - Table virtualisée ; fiche latérale (contextes, vignette, bouton PDF `#page=N`, notes et conditions).
   - Raccourcis du §5.6 ; thème clair/sombre ; formats fr-FR.
@@ -132,6 +135,10 @@ L'équivalence PM2-0001-M + S10281 + S10112 = PM2-0005 est testée en phase 4, a
   - article « contact us for availability » ou sur demande.
 - Sauvegarde, duplication et recherche des devis.
 - Exports TSV, CSV, XLSX, PDF et Markdown, en mode client ou interne. Les montants sont bruts dans le TSV et le CSV : le format fr-FR utilise U+202F, que Excel n'interprète pas comme un nombre au collage.
+- Identité visuelle des devis PDF et XLSX :
+  - en-tête avec le logo Celer-IT et les coordonnées de la société, saisies dans les paramètres ;
+  - badge « Evolis Platinum Reseller 2026/2027 » en pied de page, désactivable ;
+  - rappel de renouvellement du badge une fois passée sa date de fin, elle aussi saisie dans les paramètres.
 
 **Tests** : totaux, arrondis, TVA, remises, marges, contrôles.
 
